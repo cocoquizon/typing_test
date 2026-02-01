@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.5rem 0;
+            color: #000000;
+        }
+
+        .subtitle {
+            color: #999999;
+            font-size: 0.875rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid #000000;
+            transition: opacity 0.2s ease;
+        }
+
+        .stat-card:hover {
+            opacity: 0.7;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #999999;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #000000;
+            display: block;
+        }
+
+        .typing-area {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .text-display {
+            font-size: 1.25rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            user-select: none;
+            -webkit-user-select: none;
+            min-height: 180px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: #000000;
+        }
+
+        .char {
+            position: relative;
+            transition: all 0.1s ease;
+            color: #000000;
+        }
+
+        .char.correct {
+            color: #999999;
+        }
+
+        .char.incorrect {
+            color: #ffffff;
+            background: #000000;
+            padding: 0 2px;
+        }
+
+        .char.current {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #ffffff;
+            border: none;
+            border-bottom: 1px solid #000000;
+            padding: 0.75rem 0;
+            font-family: inherit;
+            font-size: 1.125rem;
+            color: #000000;
+            transition: border-color 0.2s ease;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-bottom: 2px solid #000000;
+        }
+
+        .input-field::placeholder {
+            color: #999999;
+        }
+
+        .input-field:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #000000;
+            border: 1px solid #000000;
+            padding: 0.875rem 2rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #ffffff;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn-secondary:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .result-screen {
+            display: none;
+        }
+
+        .result-screen.active {
+            display: block;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+            color: #000000;
+            text-align: center;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .result-stat {
+            padding: 2rem 1rem;
+            border-bottom: 1px solid #000000;
+            text-align: center;
+        }
+
+        .result-stat-label {
+            font-size: 0.75rem;
+            color: #999999;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            display: block;
+        }
+
+        .result-stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #000000;
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .text-display {
+                font-size: 1.125rem;
+            }
+
+            .typing-area {
+                padding: 2rem;
+            }
+
+            .result-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Typing Test</h1>
+            <div class="subtitle">Test Your Speed</div>
+        </div>
+
+        <div id="gameScreen">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <span class="stat-label">Timer</span>
+                    <span class="stat-value" id="timer">60</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">WPM</span>
+                    <span class="stat-value" id="wpm">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value" id="accuracy">100%</span>
+                </div>
+            </div>
+
+            <div class="typing-area">
+                <div class="text-display" id="textDisplay"></div>
+                <input 
+                    type="text" 
+                    class="input-field" 
+                    id="inputField" 
+                    placeholder="Start typing..."
+                    autocomplete="off"
+                    spellcheck="false"
+                />
+            </div>
+
+            <div class="controls">
+                <button class="btn" id="resetBtn">Reset</button>
+                <button class="btn btn-secondary" id="newTextBtn">New Text</button>
+            </div>
+        </div>
+
+        <div class="result-screen" id="resultScreen">
+            <h2 class="result-title">Test Complete</h2>
+            <div class="result-stats">
+                <div class="result-stat">
+                    <span class="result-stat-label">Words Per Minute</span>
+                    <span class="result-stat-value" id="finalWpm">0</span>
+                </div>
+                <div class="result-stat">
+                    <span class="result-stat-label">Accuracy</span>
+                    <span class="result-stat-value" id="finalAccuracy">0%</span>
+                </div>
+                <div class="result-stat">
+                    <span class="result-stat-label">Characters</span>
+                    <span class="result-stat-value" id="finalChars">0</span>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="btn" id="tryAgainBtn">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            
+            var texts = [
+                "The quick brown fox jumps over the lazy dog while the sun sets behind the mountains creating a beautiful orange glow across the evening sky.",
+                "Programming is the art of telling another human what one wants the computer to do and then translating that into code the machine can understand.",
+                "In the depths of winter I finally learned that there was in me an invincible summer waiting to emerge when the cold winds would fade away.",
+                "Adventure awaits those who dare to step outside their comfort zone and embrace the unknown with courage and an open mind ready for anything.",
+                "Coffee shops are magical places where strangers become friends over shared tables and the aroma of freshly brewed beans fills the air completely.",
+                "Every sunset brings the promise of a new dawn filled with endless possibilities and opportunities to make the world a better place for everyone.",
+                "Music has the power to transport us to different times and places evoking memories and emotions we thought were long forgotten and buried.",
+                "The ocean waves crash against the shore with rhythmic precision reminding us of the constant flow of time and nature's eternal dance of creation.",
+                "Books are portals to infinite worlds where imagination knows no bounds and every page turn reveals new adventures waiting to be discovered and explored.",
+                "Laughter is the universal language that connects all humanity transcending borders cultures and differences bringing joy and light to our darkest moments."
+            ];
+
+            var currentText = '';
+            var correctChars = 0;
+            var incorrectChars = 0;
+            var isTestActive = false;
+            var timeLeft = 60;
+            var timerInterval = null;
+            var startTime = null;
+
+            var textDisplay = document.getElementById('textDisplay');
+            var inputField = document.getElementById('inputField');
+            var timerElement = document.getElementById('timer');
+            var wpmElement = document.getElementById('wpm');
+            var accuracyElement = document.getElementById('accuracy');
+            var resetBtn = document.getElementById('resetBtn');
+            var newTextBtn = document.getElementById('newTextBtn');
+            var gameScreen = document.getElementById('gameScreen');
+            var resultScreen = document.getElementById('resultScreen');
+            var tryAgainBtn = document.getElementById('tryAgainBtn');
+
+            function getRandomText() {
+                return texts[Math.floor(Math.random() * texts.length)];
+            }
+
+            function initTest() {
+                currentText = getRandomText();
+                correctChars = 0;
+                incorrectChars = 0;
+                isTestActive = false;
+                timeLeft = 60;
+                startTime = null;
+                
+                var html = '';
+                for (var i = 0; i < currentText.length; i++) {
+                    var className = i === 0 ? 'char current' : 'char';
+                    html += '<span class="' + className + '">' + currentText[i] + '</span>';
+                }
+                textDisplay.innerHTML = html;
+                
+                inputField.value = '';
+                inputField.disabled = false;
+                timerElement.textContent = timeLeft;
+                wpmElement.textContent = '0';
+                accuracyElement.textContent = '100%';
+                
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+
+                gameScreen.classList.remove('hidden');
+                resultScreen.classList.remove('active');
+                
+                setTimeout(function() {
+                    inputField.focus();
+                }, 100);
+            }
+
+            function startTimer() {
+                if (!isTestActive) {
+                    isTestActive = true;
+                    startTime = Date.now();
+                    timerInterval = setInterval(function() {
+                        timeLeft--;
+                        timerElement.textContent = timeLeft;
+                        
+                        if (timeLeft <= 0) {
+                            endTest();
+                        }
+                    }, 1000);
+                }
+            }
+
+            function calculateWPM() {
+                if (!startTime) return 0;
+                var timeElapsed = (Date.now() - startTime) / 1000 / 60;
+                var wordsTyped = correctChars / 5;
+                return Math.round(wordsTyped / timeElapsed);
+            }
+
+            function calculateAccuracy() {
+                var total = correctChars + incorrectChars;
+                if (total === 0) return 100;
+                return Math.round((correctChars / total) * 100);
+            }
+
+            function updateStats() {
+                wpmElement.textContent = calculateWPM();
+                accuracyElement.textContent = calculateAccuracy() + '%';
+            }
+
+            function endTest() {
+                isTestActive = false;
+                clearInterval(timerInterval);
+                inputField.disabled = true;
+                
+                document.getElementById('finalWpm').textContent = calculateWPM();
+                document.getElementById('finalAccuracy').textContent = calculateAccuracy() + '%';
+                document.getElementById('finalChars').textContent = correctChars + incorrectChars;
+                
+                gameScreen.classList.add('hidden');
+                resultScreen.classList.add('active');
+            }
+
+            inputField.addEventListener('input', function(e) {
+                if (!isTestActive && e.target.value.length > 0) {
+                    startTimer();
+                }
+
+                var typedText = e.target.value;
+                var chars = textDisplay.querySelectorAll('.char');
+                
+                for (var i = 0; i < chars.length; i++) {
+                    chars[i].className = 'char';
+                }
+
+                correctChars = 0;
+                incorrectChars = 0;
+                
+                for (var i = 0; i < typedText.length && i < currentText.length; i++) {
+                    if (typedText[i] === currentText[i]) {
+                        chars[i].classList.add('correct');
+                        correctChars++;
+                    } else {
+                        chars[i].classList.add('incorrect');
+                        incorrectChars++;
+                    }
+                }
+
+                if (typedText.length < currentText.length) {
+                    chars[typedText.length].classList.add('current');
+                }
+
+                if (typedText === currentText) {
+                    endTest();
+                }
+
+                updateStats();
+            });
+
+            resetBtn.addEventListener('click', function() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                initTest();
+            });
+
+            newTextBtn.addEventListener('click', function() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                initTest();
+            });
+
+            tryAgainBtn.addEventListener('click', function() {
+                initTest();
+            });
+
+            initTest();
+        })();
+    </script>
+</body>
+</html>
