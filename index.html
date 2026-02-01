@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing Test</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,100,200,400,700,300,600,900&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Monument Grotesk Mono';
+            src: url('https://assets.cargo.site/fonts/MonumentGroteskMono-Variable.woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +20,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Monument Grotesk Mono', 'Courier New', monospace;
             background: #ffffff;
             color: #000000;
             padding: 2rem;
@@ -20,29 +28,8 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .title {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin: 0 0 0.5rem 0;
-            color: #000000;
-        }
-
-        .subtitle {
-            color: #999999;
-            font-size: 0.875rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
         }
 
         .stats-container {
@@ -280,7 +267,6 @@
 </head>
 <body>
     <div class="container">
-
         <div id="gameScreen">
             <div class="stats-container">
                 <div class="stat-card">
@@ -342,16 +328,14 @@
             'use strict';
             
             var texts = [
-                "The quick brown fox jumps over the lazy dog while the sun sets behind the mountains creating a beautiful orange glow across the evening sky.",
-                "Programming is the art of telling another human what one wants the computer to do and then translating that into code the machine can understand.",
-                "In the depths of winter I finally learned that there was in me an invincible summer waiting to emerge when the cold winds would fade away.",
-                "Adventure awaits those who dare to step outside their comfort zone and embrace the unknown with courage and an open mind ready for anything.",
-                "Coffee shops are magical places where strangers become friends over shared tables and the aroma of freshly brewed beans fills the air completely.",
-                "Every sunset brings the promise of a new dawn filled with endless possibilities and opportunities to make the world a better place for everyone.",
-                "Music has the power to transport us to different times and places evoking memories and emotions we thought were long forgotten and buried.",
-                "The ocean waves crash against the shore with rhythmic precision reminding us of the constant flow of time and nature's eternal dance of creation.",
-                "Books are portals to infinite worlds where imagination knows no bounds and every page turn reveals new adventures waiting to be discovered and explored.",
-                "Laughter is the universal language that connects all humanity transcending borders cultures and differences bringing joy and light to our darkest moments."
+                "Sudden intuitive insights become your language of choice in 2026, especially when Uranus enters Gemini in April. You may dive into the ancient classic arts, like poi, rainbow loom bracelets, multilevel marketing, capoeira, or other relational practices that allow you to illuminate the very architecture of reality. You are gaining a greater trust and understanding of the divine plan. Jesus IS your homeboy.",
+                "The best thing about Bugs and Frogs is that they're not in it for the money. They just want to be loved, and love them we did. We loved them so much that we adorn ourselves with them on only the finest fabrics we offer. ",
+                "Dresses for all stages of married life: dating, engagement, the ceremony, and for half of you, the eventual divorce. Six new designs available now.",
+                "Is your body a temple? Dress it in our curated list of Worst Bugs, eco-printed on our Swim/Active fabric, now in a yoga crossback top and shorts! Shop as separates or wear as co-ords for a fully biodiverse look.",
+                "We are looking to offer the tradwife a better option for dresses than what is currently available on the market. Our option is made of 100% linen that can double duty as both tablecloth and napkin for 1-10 kids, a low neckline to show off a motherly cleavage, and front pockets for collecting rocks after spending all that time outside.",
+                "The Andy Serkis method is a trademarked Fashion Brand Company innovation. We pioneered this method of Fashion Photography to give you high-quality fashion images without compromise. Follow us for more insider tips and tricks.",
+                "Wool is naturally odor-resistant and can be worn multiple times before needing to be washed, so feel free to leave your wool blend pieces in a pile to rewear until you are ready to wash them.",
+                "Here is a mini collection of four more lazy pants for put-together, thoughtless dressing. How many times you wear it between washes is our little secret."
             ];
 
             var currentText = '';
