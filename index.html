@@ -41,13 +41,6 @@
 
         .stat-card {
             text-align: center;
-            padding: 1.5rem 1rem;
-            border-bottom: 1px solid #000000;
-            transition: opacity 0.2s ease;
-        }
-
-        .stat-card:hover {
-            opacity: 0.7;
         }
 
         .stat-label {
@@ -55,40 +48,34 @@
             color: #999999;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
             display: block;
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            font-size: 1.5rem;
+            font-weight: 400;
             color: #000000;
             display: block;
         }
 
         .typing-area {
-            background: #ffffff;
-            border: 1px solid #000000;
-            padding: 3rem;
             margin-bottom: 2rem;
         }
 
         .text-display {
-            font-size: 1.25rem;
-            line-height: 2;
+            font-size: 1.125rem;
+            line-height: 1.8;
             margin-bottom: 2rem;
             user-select: none;
             -webkit-user-select: none;
-            min-height: 180px;
+            min-height: 150px;
             font-weight: 400;
-            letter-spacing: -0.01em;
             color: #000000;
         }
 
         .char {
-            position: relative;
             transition: all 0.1s ease;
             color: #000000;
         }
@@ -98,83 +85,72 @@
         }
 
         .char.incorrect {
-            color: #ffffff;
-            background: #000000;
-            padding: 0 2px;
+            color: #ff0000;
         }
 
         .char.current {
             text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 4px;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
         }
 
         .input-field {
             width: 100%;
-            background: #ffffff;
+            background: transparent;
             border: none;
             border-bottom: 1px solid #000000;
-            padding: 0.75rem 0;
+            padding: 0.5rem 0;
             font-family: inherit;
-            font-size: 1.125rem;
+            font-size: 1rem;
             color: #000000;
-            transition: border-color 0.2s ease;
             font-weight: 400;
-            letter-spacing: -0.01em;
         }
 
         .input-field:focus {
             outline: none;
-            border-bottom: 2px solid #000000;
         }
 
         .input-field::placeholder {
-            color: #999999;
+            color: #cccccc;
         }
 
         .input-field:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
+            opacity: 0.3;
         }
 
         .controls {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .btn {
-            background: #000000;
-            border: 1px solid #000000;
-            padding: 0.875rem 2rem;
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1.5rem;
             font-family: inherit;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #000000;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             transition: all 0.2s ease;
+            text-decoration: none;
         }
 
         .btn:hover {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
+            color: #0000ff;
+            text-decoration: underline;
         }
 
         .btn-secondary {
-            background: #ffffff;
-            color: #000000;
+            color: #999999;
         }
 
         .btn-secondary:hover {
-            background: #000000;
-            color: #ffffff;
+            color: #0000ff;
+            text-decoration: underline;
         }
 
         .result-screen {
@@ -186,10 +162,9 @@
         }
 
         .result-title {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 400;
             margin-bottom: 3rem;
-            letter-spacing: -0.02em;
             color: #000000;
             text-align: center;
         }
@@ -202,8 +177,6 @@
         }
 
         .result-stat {
-            padding: 2rem 1rem;
-            border-bottom: 1px solid #000000;
             text-align: center;
         }
 
@@ -213,14 +186,13 @@
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            font-weight: 500;
+            font-weight: 400;
             display: block;
         }
 
         .result-stat-value {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            font-size: 2rem;
+            font-weight: 400;
             color: #000000;
             display: block;
         }
@@ -234,21 +206,13 @@
                 padding: 1rem;
             }
 
-            .title {
-                font-size: 1.5rem;
-            }
-
             .stats-container {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
 
             .text-display {
-                font-size: 1.125rem;
-            }
-
-            .typing-area {
-                padding: 2rem;
+                font-size: 1rem;
             }
 
             .result-stats {
